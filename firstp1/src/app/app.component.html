@@ -1,0 +1,27 @@
+<h2>Employee List</h2>
+<table>
+  <thead>
+    <tr>
+     
+      <th>Employee Name</th>
+
+      <th>Total Time worked</th>
+  
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employeeTotal of employeeTotals" [ngClass]="{'less-than-100': employeeTotal.totalTimeWorked < 100}">
+      <td  *ngIf="employeeTotal.totalTimeWorked>=100">{{ employeeTotal.employeeName }}</td>
+      <td style="background-color: pink;"  *ngIf="employeeTotal.totalTimeWorked<100">{{ employeeTotal.employeeName }}</td>
+      <td  *ngIf="employeeTotal.totalTimeWorked>=100">{{ employeeTotal.totalTimeWorked | number:'1.2-2' }}</td>
+      <td style="background-color: pink;" *ngIf="employeeTotal.totalTimeWorked<100">{{ employeeTotal.totalTimeWorked | number:'1.2-2' }}</td>
+    </tr>
+ 
+  </tbody>
+  <h1>Pie Chart </h1>
+
+
+  <div id="chart" echarts [options]="pieChartOptions" style="width: 800px; height: 600px;background-color: bisque;"></div>
+
+
+</table>

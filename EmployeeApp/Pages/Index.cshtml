@@ -1,0 +1,93 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@{
+    ViewData["Title"] = "Employee Work Hours";
+}
+<head>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Total Time Worked (hours)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model.Employees)
+        {
+         
+    var isGreaterThanFourHours = employee.TotalTimeWorked.TotalHours < 100;
+    var rowClass = isGreaterThanFourHours ? "table-success" : "table-danger";
+
+            <tr class="@rowClass">
+                <td>@employee.EmployeeName</td>
+                <td>@employee.TotalTimeWorked.TotalHours</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+  <h2>Employee Work Hours In  Pie chart</h2>
+    <canvas id="workHoursChart" width="300" height="300"></canvas>
+
+    <script>
+        var ctx = document.getElementById('workHoursChart').getContext('2d');
+        var workHoursChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    @foreach (var employee in Model.Employees)
+                    {
+                        <text>"@employee.EmployeeName",</text>
+                    }
+                ],
+                datasets: [{
+                    label: 'Total Time Worked (Hours)',
+                    data: [
+                        @foreach (var employee in Model.Employees)
+                        {
+                            <text>@employee.TotalTimeWorked.TotalHours,</text>
+                        }
+                    ],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+<style>
+    .table-danger {
+        background-color: #ffcccc;
+    }
+</style>

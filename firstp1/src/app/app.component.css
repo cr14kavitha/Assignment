@@ -1,0 +1,26 @@
+tr{
+    border: 1px solid black;
+    padding: 2%;
+    margin: 0px;
+    width: auto;
+}
+
+th{
+    border: 1px solid black;
+    padding: 2%;
+    margin: 0px;
+    width: auto;
+    padding-right: 2%;
+}
+
+td{
+    border: 1px solid black;
+    padding: 2%;
+    width: auto;
+    margin: 0px;
+}
+
+.chart-container {
+    height: 400px;
+    width: 100%;
+  }
